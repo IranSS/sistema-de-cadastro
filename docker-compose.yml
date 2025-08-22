@@ -1,0 +1,28 @@
+version: 'version'
+
+services:
+  postgres-db:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=sistema_cadastro
+      - POSTGRES_USER=sistema_cadastro_user
+      - POSTGRES_PASSWORD=8569
+  sistema-spring:
+    image: sistema-spring:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/sistema_cadastro
+    depends_on:
+      - postgres-db
+
+  sistema-cadastro-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    depends_on:
+      - sistema-spring

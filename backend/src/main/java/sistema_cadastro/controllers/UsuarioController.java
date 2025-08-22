@@ -1,16 +1,22 @@
 package sistema_cadastro.controllers;
 
-import sistema_cadastro.model.UsuarioDTO;
-import sistema_cadastro.model.UsuarioModel;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import sistema_cadastro.model.UsuarioDTO;
+import sistema_cadastro.model.UsuarioModel;
 import sistema_cadastro.repository.UsuarioRepository;
 
-import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:9090", allowCredentials = "true")
 @RestController
 @RequestMapping(value = "/user")
 public class UsuarioController {
@@ -29,8 +35,6 @@ public class UsuarioController {
         UsuarioModel usuarioModel = new UsuarioModel();
         try{
             usuarioModel.setNome(usuarioDTO.nome());
-            usuarioModel.setEmail(usuarioDTO.email());
-            usuarioModel.setSenha(usuarioDTO.senha());
         }catch(Exception e){
             System.out.println("Error ao salvar usuario: " + e);
         }
