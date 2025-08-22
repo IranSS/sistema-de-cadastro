@@ -9,8 +9,8 @@ public class addCorsMappings implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
-                .allowedOrigins("https://sistema-de-cadastro-ezte.onrender.com")  // Seu frontend em produção
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins("https://sistema-de-cadastro-ezte.onrender.com", 
+                "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
