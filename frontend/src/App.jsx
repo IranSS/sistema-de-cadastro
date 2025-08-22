@@ -6,8 +6,10 @@ function App() {
   const [nome, setNome] = useState('');
   const [data, setData] = useState([]);
 
+  const url = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    axios.get('http://localhost:8080/user/get')
+    axios.get(`${url}/user/get`)
       .then(response => {
         console.log(response.data);
         setData(response.data);
@@ -18,7 +20,7 @@ function App() {
   }, [])
   const handleSubmit = (event) => {
     try {
-      axios.post('http://localhost:8080/user/post', {
+      axios.post(`${url}/user/post`, {
         nome,
       });
       setNome('');
