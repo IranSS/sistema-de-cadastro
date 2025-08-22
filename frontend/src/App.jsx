@@ -6,10 +6,8 @@ function App() {
   const [nome, setNome] = useState('');
   const [data, setData] = useState([]);
 
-  const url = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
-    axios.get(`${url}/user/get`)
+    axios.get(import.meta.env.VITE_GET_URL)
       .then(response => {
         console.log(response.data);
         setData(response.data);
@@ -20,8 +18,8 @@ function App() {
   }, [])
   const handleSubmit = (event) => {
     try {
-      axios.post(`${url}/user/post`, {
-        nome,
+      axios.post(import.meta.env.VITE_POST_URL, {
+        nome: nome
       });
       setNome('');
     } catch (error) {
@@ -47,7 +45,15 @@ function App() {
         <button onClick={handleSubmit}>Enviar</button>
       </div>
       <button onClick={handleReload}>Recarregar</button>
-      <p>{data.map(item => item.nome).join(', ')}</p>
+      <div>
+        {!data ? (
+          <p>Carregando...</p>
+        ) : data.length === 0 ? (
+          <p>Nenhum dado encontrado</p>
+        ) : (
+          <p>{data.map(item => item.nome).join(', ')}</p>
+        )}
+      </div>
     </>
   )
 }
